@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Letters We Needed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBF0F1;
+    --paper-deep:#F5DEE1;
+    --plum:#7A2B41;
+    --plum-soft:#9A4361;
+    --rose:#D98A9B;
+    --rose-deep:#C15C74;
+    --gold:#C97C63;
+    --ink:#4A1E2B;
+    --ink-soft:#8A5C68;
+    --line: rgba(122,43,65,0.16);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'EB Garamond', serif;
+    font-size:19px;
+    line-height:1.7;
+  }
+  .texture{
+    position:fixed; inset:0; pointer-events:none; z-index:0; opacity:0.5;
+    background-image:
+      radial-gradient(rgba(59,34,51,0.035) 1px, transparent 1px);
+    background-size:3px 3px;
+  }
+  .wrap{max-width:920px; margin:0 auto; padding:0 28px; position:relative; z-index:1;}
+
+  header.hero{
+    padding:90px 0 60px;
+    text-align:center;
+    border-bottom:1px solid var(--line);
+  }
+  .eyebrow{
+    font-family:'EB Garamond', serif;
+    font-style:italic;
+    letter-spacing:0.08em;
+    color:var(--rose-deep);
+    font-size:15px;
+    margin-bottom:14px;
+  }
+  h1.title{
+    font-family:'Caveat', cursive;
+    font-weight:700;
+    font-size:96px;
+    color:var(--plum);
+    margin:0 0 18px;
+    line-height:0.95;
+  }
+  .flourish{
+    color: var(--rose-deep);
+    font-size:15px;
+    margin-bottom:20px;
+    opacity:0.7;
+  }
+  .hero p.sub{
+    max-width:520px;
+    margin:0 auto;
+    color:var(--ink-soft);
+    font-size:20px;
+    font-style:italic;
+  }
+  .hero-actions{
+    margin-top:34px;
+    display:flex;
+    gap:16px;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+  .btn{
+    font-family:'EB Garamond', serif;
+    font-size:17px;
+    padding:12px 26px;
+    border-radius:2px;
+    border:1px solid var(--plum);
+    background:transparent;
+    color:var(--plum);
+    cursor:pointer;
+    text-decoration:none;
+    display:inline-block;
+    transition: all 0.2s ease;
+  }
+  .btn.primary{
+    background:var(--plum);
+    color:var(--paper);
+  }
+  .btn:hover{ transform: translateY(-1px); }
+  .btn.primary:hover{ background:var(--plum-soft); }
+  .btn:not(.primary):hover{ background:rgba(59,34,51,0.06); }
+
+  section{ padding:70px 0; }
+  section.about{ border-bottom:1px solid var(--line); }
+  .about-inner{ max-width:640px; margin:0 auto; text-align:center; }
+  .about-inner h2{
+    font-family:'Fraunces', serif;
+    font-weight:400;
+    font-style:italic;
+    font-size:30px;
+    color:var(--plum);
+    margin-bottom:20px;
+  }
+  .about-inner p{ color:var(--ink-soft); font-size:19px; }
+
+  .section-heading{
+    font-family:'Fraunces', serif;
+    font-weight:400;
+    font-size:34px;
+    color:var(--plum);
+    text-align:center;
+    margin-bottom:8px;
+  }
+  .section-heading .amp{ font-style:italic; color:var(--rose-deep); }
+  .section-tag{
+    text-align:center;
+    color:var(--ink-soft);
+    font-style:italic;
+    margin-bottom:46px;
+    font-size:17px;
+  }
+
+  .theme-rail{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:46px;
+  }
+  .theme-pill{
+    font-family:'EB Garamond', serif;
+    font-size:15px;
+    padding:7px 18px;
+    border-radius:20px;
+    border:1px solid var(--line);
+    color:var(--ink-soft);
+    background:var(--paper-deep);
+    cursor:pointer;
+  }
+  .theme-pill.active{
+    background:var(--plum);
+    color:var(--paper);
+    border-color:var(--plum);
+  }
+
+  .letters-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(240px,1fr));
+    gap:26px;
+  }
+  .letter-card{
+    background:var(--paper-deep);
+    border:1px solid var(--line);
+    border-radius:3px;
+    padding:30px 26px 26px;
+    cursor:pointer;
+    position:relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .letter-card::before{
+    content:"";
+    position:absolute; top:0; left:24px; right:24px; height:1px;
+    background: var(--line);
+    top: 18px;
+  }
+  .letter-card:hover{
+    transform: translateY(-3px) rotate(-0.4deg);
+    box-shadow: 0 10px 24px rgba(193,92,116,0.18);
+  }
+  .letter-theme{
+    font-family:'EB Garamond', serif;
+    font-style:italic;
+    font-size:14px;
+    color:var(--rose-deep);
+    margin-bottom:10px;
+  }
+  .letter-excerpt{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:19px;
+    color:var(--plum);
+    line-height:1.55;
+    margin-bottom:18px;
+  }
+  .letter-meta{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:14px;
+    color:var(--ink-soft);
+    border-top:1px solid var(--line);
+    padding-top:14px;
+  }
+  .read-more{ font-style:italic; color:var(--gold); }
+
+  section.submit{
+    text-align:center;
+    background:var(--plum);
+    color:var(--paper);
+    border-radius:4px;
+    margin:0 28px 70px;
+    padding:64px 30px;
+  }
+  section.submit .wrap{ padding:0; }
+  section.submit h2{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:32px;
+    margin-bottom:16px;
+  }
+  section.submit p{
+    max-width:480px;
+    margin:0 auto 28px;
+    color:#E5D9DE;
+    font-size:18px;
+  }
+  section.submit .btn.primary{
+    background:var(--paper);
+    color:var(--plum);
+    border-color:var(--paper);
+  }
+  section.submit .btn.primary:hover{ background:#EADFCF; }
+
+  footer{
+    text-align:center;
+    padding:36px 0 60px;
+    color:var(--ink-soft);
+    font-size:15px;
+    font-style:italic;
+  }
+  footer .curator{
+    margin-top:10px;
+    font-family:'Caveat', cursive;
+    font-style:normal;
+    font-size:22px;
+    color:var(--plum);
+  }
+
+  .overlay{
+    display:none;
+    position:fixed; inset:0;
+    background:rgba(42,27,36,0.55);
+    z-index:50;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+  }
+  .overlay.open{ display:flex; }
+  .letter-full{
+    background:var(--paper);
+    max-width:600px;
+    width:100%;
+    max-height:82vh;
+    overflow-y:auto;
+    border-radius:4px;
+    padding:46px 44px;
+    position:relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+  .letter-full .close{
+    position:absolute; top:18px; right:22px;
+    background:none; border:none; font-size:26px;
+    color:var(--ink-soft); cursor:pointer; font-family:serif;
+  }
+  .letter-full .letter-theme{ margin-bottom:16px; }
+  .letter-full .letter-body{
+    font-family:'Fraunces', serif;
+    font-size:20px;
+    line-height:1.75;
+    color:var(--ink);
+    white-space:pre-line;
+  }
+  .letter-full .signoff{
+    margin-top:26px;
+    font-family:'Caveat', cursive;
+    font-size:28px;
+    color:var(--plum);
+  }
+
+  @media (max-width:600px){
+    h1.title{ font-size:64px; }
+    header.hero{ padding:64px 0 44px; }
+    section{ padding:50px 0; }
+    section.submit{ margin:0 14px 50px; padding:48px 22px; }
+  }
+</style>
+</head>
+<body>
+<div class="texture"></div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">a GYAP'26 project · Empowered Girlhood NCR</div>
+    <h1 class="title">Letters We Needed</h1>
+    <div class="flourish">&#10084;</div>
+    <p class="sub">Real letters, written by girls, to the younger selves who needed to hear them.</p>
+    <div class="hero-actions">
+      <a href="#letters" class="btn primary">Read the letters</a>
+      <a href="#submit" class="btn">Write yours</a>
+    </div>
+  </div>
+</header>
+
+<section class="about">
+  <div class="wrap about-inner">
+    <h2>Why this exists</h2>
+    <p>Girls are raised to stay quiet and accommodating instead of confident and heard. This is a small, growing archive of the letters we wish someone had given us younger, about ambition, our bodies, our voices, and where we belong. Every letter posted here is one less thing left unsaid.</p>
+  </div>
+</section>
+
+<section id="letters">
+  <div class="wrap">
+    <h2 class="section-heading">the <span class="amp">archive</span></h2>
+    <p class="section-tag">Click a letter to read it in full</p>
+
+    <div class="theme-rail">
+      <button class="theme-pill active" data-filter="all">All letters</button>
+      <button class="theme-pill" data-filter="ambition">Ambition</button>
+      <button class="theme-pill" data-filter="body">Body</button>
+      <button class="theme-pill" data-filter="voice">Being heard</button>
+      <button class="theme-pill" data-filter="boundaries">Boundaries</button>
+    </div>
+
+    <div class="letters-grid" id="lettersGrid"></div>
+  </div>
+</section>
+
+<section id="submit" class="submit">
+  <div class="wrap">
+    <h2>Your letter belongs here too</h2>
+    <p>Anonymous or signed, a paragraph or a poem. If it's something you wish you'd heard younger, we want to keep it.</p>
+    <a href="#" class="btn primary" onclick="alert('Add your Google Form link here'); return false;">Submit your letter</a>
+  </div>
+</section>
+
+<footer>
+  this is the letter we needed. now it exists.
+  <div class="curator">curated with love by Mannat Arora</div>
+</footer>
+
+<div class="overlay" id="overlay">
+  <div class="letter-full" id="letterFull"></div>
+</div>
+
+<script>
+const letters = [
+  {
+    theme: "ambition",
+    themeLabel: "on ambition",
+    excerpt: "You are allowed to want more than what was handed to you.",
+    body: "Dear younger me,\n\nSomeone once told you to want less, to keep your dreams reasonable, quiet, easy to carry. You believed them.\n\nBut wanting more was never the problem. You are allowed to take up the whole room with your ambition. You are allowed to say it out loud.\n\nStop shrinking the dream to fit what felt safe to say.",
+    signoff: "with love, a version of you who stopped apologizing",
+    author: "Anonymous",
+    date: "submitted this week"
+  },
+  {
+    theme: "voice",
+    themeLabel: "on being heard",
+    excerpt: "You were not too loud. The room was just too used to your silence.",
+    body: "Dear younger me,\n\nYou learned to say sorry before you said anything else. Sorry for the opinion, sorry for the question, sorry for simply being in the conversation.\n\nNobody warned you that this habit would follow you into every room you'd ever walk into, work, love, friendship, all of it.\n\nYou are not too much. You were just taught to believe that taking up space was a flaw instead of a right.",
+    signoff: "with love, Mannat",
+    author: "Mannat Arora",
+    date: "submitted this week"
+  },
+  {
+    theme: "body",
+    themeLabel: "on the body",
+    excerpt: "Your body was never something you needed permission to live in.",
+    body: "Dear younger me,\n\nYou spent so long trying to make yourself smaller, quieter, easier to overlook, as if your body needed to apologize for existing the way it did.\n\nNo one tells you early enough that comfort in your own skin isn't vanity, it's peace. You don't owe anyone a softer version of yourself.\n\nTake up the space. It was always yours.",
+    signoff: "with love, a friend who's still learning too",
+    author: "Anonymous",
+    date: "submitted this week"
+  },
+  {
+    theme: "boundaries",
+    themeLabel: "on boundaries",
+    excerpt: "\"No\" is a full sentence. You never needed to explain it.",
+    body: "Dear younger me,\n\nYou were taught that being agreeable was the same as being kind. So you said yes when you meant no, and smiled when you wanted to leave.\n\nA boundary is not rudeness. It is not selfish. It is the most basic form of respect you owe yourself.\n\nYou can care about people and still protect your peace. Both can be true.",
+    signoff: "with love, someone who finally set hers",
+    author: "Anonymous",
+    date: "submitted this week"
+  }
+];
+
+const grid = document.getElementById('lettersGrid');
+const overlay = document.getElementById('overlay');
+const letterFull = document.getElementById('letterFull');
+
+function renderLetters(filter){
+  grid.innerHTML = '';
+  letters.filter(l => filter === 'all' || l.theme === filter).forEach((l, i) => {
+    const card = document.createElement('div');
+    card.className = 'letter-card';
+    card.innerHTML = `
+      <div class="letter-theme">${l.themeLabel}</div>
+      <div class="letter-excerpt">"${l.excerpt}"</div>
+      <div class="letter-meta">
+        <span>${l.author}</span>
+        <span class="read-more">read letter &rarr;</span>
+      </div>
+    `;
+    card.addEventListener('click', () => openLetter(l));
+    grid.appendChild(card);
+  });
+}
+
+function openLetter(l){
+  letterFull.innerHTML = `
+    <button class="close" aria-label="Close">&times;</button>
+    <div class="letter-theme">${l.themeLabel}</div>
+    <div class="letter-body">${l.body}</div>
+    <div class="signoff">${l.signoff}</div>
+  `;
+  letterFull.querySelector('.close').addEventListener('click', closeLetter);
+  overlay.classList.add('open');
+}
+function closeLetter(){ overlay.classList.remove('open'); }
+overlay.addEventListener('click', (e) => { if(e.target === overlay) closeLetter(); });
+
+document.querySelectorAll('.theme-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    document.querySelectorAll('.theme-pill').forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+    renderLetters(pill.dataset.filter);
+  });
+});
+
+renderLetters('all');
+</script>
+
+</body>
+</html>
