@@ -231,6 +231,39 @@
   }
   section.submit .btn.primary:hover{ background:#EADFCF; }
 
+  .submit-form{
+    max-width:440px;
+    margin:0 auto;
+    text-align:left;
+  }
+  .form-row{ margin-bottom:16px; }
+  .submit-form select,
+  .submit-form input[type="text"],
+  .submit-form textarea{
+    width:100%;
+    font-family:'EB Garamond', serif;
+    font-size:17px;
+    padding:12px 14px;
+    border-radius:2px;
+    border:1px solid rgba(251,240,241,0.35);
+    background:rgba(251,240,241,0.08);
+    color:var(--paper);
+  }
+  .submit-form select option{ color:var(--ink); }
+  .submit-form textarea{ resize:vertical; }
+  .submit-form select::placeholder,
+  .submit-form input::placeholder,
+  .submit-form textarea::placeholder{ color:rgba(251,240,241,0.6); }
+  .submit-form button{ width:100%; }
+  .form-thanks{
+    display:none;
+    text-align:center;
+    font-style:italic;
+    color:#E5D9DE;
+    margin-top:18px;
+  }
+  .form-thanks.show{ display:block; }
+
   footer{
     text-align:center;
     padding:36px 0 60px;
@@ -305,8 +338,8 @@
     <div class="flourish">&#10084;</div>
     <p class="sub">Real letters, written by girls, to the younger selves who needed to hear them.</p>
     <div class="hero-actions">
-      <a href="#letters" class="btn primary">Read the letters</a>
-      <a href="#submit" class="btn">Write yours</a>
+      <a href="#letters" class="btn primary">Read the letter</a>
+      <a href="#poetry" class="btn">Read the poetry</a>
     </div>
   </div>
 </header>
@@ -314,32 +347,49 @@
 <section class="about">
   <div class="wrap about-inner">
     <h2>Why this exists</h2>
-    <p>Girls are raised to stay quiet and accommodating instead of confident and heard. This is a small, growing archive of the letters we wish someone had given us younger, about ambition, our bodies, our voices, and where we belong. Every letter posted here is one less thing left unsaid.</p>
+    <p>Girls are raised to stay quiet and accommodating instead of confident and heard. This is a small, growing archive of the letters and poetry we wish someone had given us younger, about ambition, our bodies, our voices, and where we belong. Every word posted here is one less thing left unsaid.</p>
   </div>
 </section>
 
 <section id="letters">
   <div class="wrap">
-    <h2 class="section-heading">the <span class="amp">archive</span></h2>
-    <p class="section-tag">Click a letter to read it in full</p>
-
-    <div class="theme-rail">
-      <button class="theme-pill active" data-filter="all">All letters</button>
-      <button class="theme-pill" data-filter="ambition">Ambition</button>
-      <button class="theme-pill" data-filter="body">Body</button>
-      <button class="theme-pill" data-filter="voice">Being heard</button>
-      <button class="theme-pill" data-filter="boundaries">Boundaries</button>
-    </div>
-
+    <h2 class="section-heading">the <span class="amp">letter</span></h2>
+    <p class="section-tag">Click to read it in full</p>
     <div class="letters-grid" id="lettersGrid"></div>
+  </div>
+</section>
+
+<section id="poetry">
+  <div class="wrap">
+    <h2 class="section-heading">the <span class="amp">poetry</span></h2>
+    <p class="section-tag">Click to read it in full</p>
+    <div class="letters-grid" id="poetryGrid"></div>
   </div>
 </section>
 
 <section id="submit" class="submit">
   <div class="wrap">
-    <h2>Your letter belongs here too</h2>
+    <h2>Add your words of magic to our project</h2>
     <p>Anonymous or signed, a paragraph or a poem. If it's something you wish you'd heard younger, we want to keep it.</p>
-    <a href="#" class="btn primary" onclick="alert('Add your Google Form link here'); return false;">Submit your letter</a>
+
+    <form id="submitForm" action="https://formspree.io/f/xzdlnoel" method="POST" class="submit-form">
+      <div class="form-row">
+        <select name="type" required>
+          <option value="" disabled selected>This is a...</option>
+          <option value="Letter">Letter</option>
+          <option value="Poetry">Poetry</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <input type="text" name="name" placeholder="Your name (or leave blank to stay anonymous)">
+      </div>
+      <div class="form-row">
+        <textarea name="content" rows="6" placeholder="Write your letter or poem here..." required></textarea>
+      </div>
+      <button type="submit" class="btn primary">Submit</button>
+    </form>
+
+    <p id="formThanks" class="form-thanks">Thank you. Your words have been received.</p>
   </div>
 </section>
 
@@ -355,50 +405,54 @@
 <script>
 const letters = [
   {
-    theme: "ambition",
-    themeLabel: "on ambition",
-    excerpt: "You are allowed to want more than what was handed to you.",
-    body: "Dear younger me,\n\nSomeone once told you to want less, to keep your dreams reasonable, quiet, easy to carry. You believed them.\n\nBut wanting more was never the problem. You are allowed to take up the whole room with your ambition. You are allowed to say it out loud.\n\nStop shrinking the dream to fit what felt safe to say.",
-    signoff: "with love, a version of you who stopped apologizing",
-    author: "Anonymous",
-    date: "submitted this week"
-  },
-  {
     theme: "voice",
     themeLabel: "on being heard",
-    excerpt: "You were not too loud. The room was just too used to your silence.",
-    body: "Dear younger me,\n\nYou learned to say sorry before you said anything else. Sorry for the opinion, sorry for the question, sorry for simply being in the conversation.\n\nNobody warned you that this habit would follow you into every room you'd ever walk into, work, love, friendship, all of it.\n\nYou are not too much. You were just taught to believe that taking up space was a flaw instead of a right.",
+    excerpt: "You were never too much. You were just taught to believe your voice needed permission.",
+    body: "Dear younger me,\n\nYou learned to say sorry before you said anything else. Sorry for the opinion, sorry for the question, sorry for simply being in the conversation.\n\nYou watched other girls around you being called \"good\" for staying quiet, and you thought that was the standard to reach for. So you softened everything, your ambition, your anger, even your art, until it was easy for everyone else to hold.\n\nBut I need you to know this now: your education is not a favor being done to you, it is yours to claim. Your health is not something to explain away or apologize for needing. And your voice, the one you kept folding smaller and smaller, was never the problem.\n\nThe world will call a boy ambitious and a girl \"a lot.\" Let them. You are allowed to take up the whole room. You are allowed to want equal respect, not just equal presence.\n\nStop shrinking the dream, and the voice, to fit what felt safe to say.",
     signoff: "with love, Mannat",
     author: "Mannat Arora",
-    date: "submitted this week"
+    date: "letter"
   },
   {
-    theme: "body",
-    themeLabel: "on the body",
-    excerpt: "Your body was never something you needed permission to live in.",
-    body: "Dear younger me,\n\nYou spent so long trying to make yourself smaller, quieter, easier to overlook, as if your body needed to apologize for existing the way it did.\n\nNo one tells you early enough that comfort in your own skin isn't vanity, it's peace. You don't owe anyone a softer version of yourself.\n\nTake up the space. It was always yours.",
-    signoff: "with love, a friend who's still learning too",
-    author: "Anonymous",
-    date: "submitted this week"
+    theme: "family",
+    themeLabel: "on being understood",
+    excerpt: "You deserved love on the days you scored full marks. You deserved love on the days you failed.",
+    body: "Dear Younger Me,\n\nI wish I could sit beside you and tell you something no one ever did.\n\nYou grew up in a home where love existed, but understanding often didn't. They cared for you in the ways they knew how, yet you spent years wondering why you still felt so alone.\n\nSomehow, you learned that love had to be earned. Good grades became your language. Every mark felt like proof that you deserved to be seen, to be praised, to be held a little closer. When you succeeded, you felt worthy. When you failed, you felt invisible.\n\nYou were never just studying for yourself. You were studying for love.\n\nYou cried quietly because every tear was called \"drama.\" After hearing it enough times, you started believing it too. You apologized for your feelings before you even spoke them. You convinced yourself that maybe you were too sensitive, too emotional, too much.\n\nBut you weren't.\n\nYou were a child trying to explain a pain that had no words.\n\nThere were days when your room felt like the only place that understood your silence. You smiled at the dinner table, answered \"I'm fine,\" and carried a weight no one seemed to notice. You kept hoping someone would ask the right question. Someone would see beyond your grades, beyond your smile, beyond the version of yourself you created to make everyone comfortable.\n\nNo one did.\n\nSo you learned to carry yourself.\n\nI know how lonely that felt.\n\nOne day, you'll realize that being misunderstood doesn't make your feelings any less real. Your tears were never a performance. Your exhaustion was never laziness. Your need to be heard was never selfish.\n\nYou deserved love on the days you scored full marks.\n\nYou deserved love on the days you failed.\n\nYou deserved love even when you had nothing to prove.\n\nI wish someone had told you that sooner.\n\nI'm proud of you, not because of your achievements, but because you kept going when you felt unseen. You kept hoping, even after disappointment. You kept loving people who didn't always know how to understand you.\n\nThat takes incredible strength.\n\nSo, little one, stop carrying the impossible responsibility of earning your place in the hearts of others. Your worth was never hidden inside a report card. It was always inside you.\n\nAnd one day, I promise, you'll meet people who don't ask you to prove you're worthy before they choose to understand you.\n\nUntil then, hold on.\n\nI'm here now.",
+    signoff: "with all the love and understanding you always needed, your older self",
+    author: "A~",
+    date: "letter"
+  }
+];
+
+const poems = [
+  {
+    theme: "voice",
+    themeLabel: "original poetry",
+    excerpt: "Young was she. Not fragile. In the garden of words, she hides.",
+    body: "She\n\nYoung was she\nNot fragile\nIn the garden of words,\nShe hides.\n\nWants someone,\nBy her side,\nBut what she gets\nIs vacant tide.\n\nStreets know her name,\nWhere she passes by.\nHer eyes got the charm\nThat never dies.\n\nHer hands were warm\nOn a chilly night,\nAnd when she tries,\nShe always cries.\n\nThe bushes know\nThe songs she sings.\nThe lake knows\nHow she cries.\n\nAnd the ground knows\nWhy she lies.\nAnd pretty miss thinks\nShe is not right.",
+    signoff: "Mannat Arora",
+    author: "Mannat Arora",
+    date: "poetry"
   },
   {
-    theme: "boundaries",
-    themeLabel: "on boundaries",
-    excerpt: "\"No\" is a full sentence. You never needed to explain it.",
-    body: "Dear younger me,\n\nYou were taught that being agreeable was the same as being kind. So you said yes when you meant no, and smiled when you wanted to leave.\n\nA boundary is not rudeness. It is not selfish. It is the most basic form of respect you owe yourself.\n\nYou can care about people and still protect your peace. Both can be true.",
-    signoff: "with love, someone who finally set hers",
+    theme: "love",
+    themeLabel: "original poetry",
+    excerpt: "I gave the world I thought I knew, I gave it all… to be with you.",
+    body: "I ignored the world to be with you,\nTo chase a dream I thought was true.\nI turned down noise, I closed the door,\nFor love that lit me to my core.\n\nI let the days just pass me by,\nLost in the color of your sky.\nI gave up roads I used to roam,\nBecause your arms had felt like home.\n\nI silenced doubt, I stood so still,\nBelieving love could bend the will.\nI fought my storms with just your name,\nAnd held your heart like sacred flame.\n\nBut love, it asks for more than fire,\nMore than just hope or deep desire.\nAnd now I stand where silence grew,\nWondering if you saw it too.\n\nWas I a choice or just a phase,\nA fleeting warmth in passing days?\nI gave the world I thought I knew,\nI gave it all… to be with you.",
+    signoff: "Anonymous",
     author: "Anonymous",
-    date: "submitted this week"
+    date: "poetry"
   }
 ];
 
 const grid = document.getElementById('lettersGrid');
+const poetryGrid = document.getElementById('poetryGrid');
 const overlay = document.getElementById('overlay');
 const letterFull = document.getElementById('letterFull');
 
-function renderLetters(filter){
-  grid.innerHTML = '';
-  letters.filter(l => filter === 'all' || l.theme === filter).forEach((l, i) => {
+function renderCards(list, container){
+  container.innerHTML = '';
+  list.forEach(l => {
     const card = document.createElement('div');
     card.className = 'letter-card';
     card.innerHTML = `
@@ -406,11 +460,11 @@ function renderLetters(filter){
       <div class="letter-excerpt">"${l.excerpt}"</div>
       <div class="letter-meta">
         <span>${l.author}</span>
-        <span class="read-more">read letter &rarr;</span>
+        <span class="read-more">read in full &rarr;</span>
       </div>
     `;
     card.addEventListener('click', () => openLetter(l));
-    grid.appendChild(card);
+    container.appendChild(card);
   });
 }
 
@@ -427,15 +481,30 @@ function openLetter(l){
 function closeLetter(){ overlay.classList.remove('open'); }
 overlay.addEventListener('click', (e) => { if(e.target === overlay) closeLetter(); });
 
-document.querySelectorAll('.theme-pill').forEach(pill => {
-  pill.addEventListener('click', () => {
-    document.querySelectorAll('.theme-pill').forEach(p => p.classList.remove('active'));
-    pill.classList.add('active');
-    renderLetters(pill.dataset.filter);
+renderCards(letters, grid);
+renderCards(poems, poetryGrid);
+
+const submitForm = document.getElementById('submitForm');
+const formThanks = document.getElementById('formThanks');
+submitForm.addEventListener('submit', function(e){
+  e.preventDefault();
+  const data = new FormData(submitForm);
+  fetch(submitForm.action, {
+    method: 'POST',
+    body: data,
+    headers: { 'Accept': 'application/json' }
+  }).then(response => {
+    if(response.ok){
+      submitForm.reset();
+      submitForm.style.display = 'none';
+      formThanks.classList.add('show');
+    } else {
+      alert('Something went wrong. Please try again in a moment.');
+    }
+  }).catch(() => {
+    alert('Something went wrong. Please check your connection and try again.');
   });
 });
-
-renderLetters('all');
 </script>
 
 </body>
